@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+
+    <body>
+        <h1>I ♥ Animals!</h1>
+        <div id="counter"></div>
+        <div id="display">
+        
+        </div>
+        
+    <script>
+        //console.info("Event is: ", e);
+	    //console.log("Custom data is: ", e.detail.data);
+        
+        var display=document.getElementById("display");
+        
+        display.addEventListener("dataLoaded", function(e) {
+            
+            var result=[],
+                data = e.detail.data;
+            
+            data.forEach(function(item){
+                result.push("<img src='" + item + "'/>");
+            });
+            
+            this.insertAdjacentHTML('beforeend',result.join(''));
+        })
+        
+        document.getElementById("counter").addEventListener("dataLoaded",function(e){
+            debugger
+         var data = e.detail.data;
+         this.innerHTML = "loaded " + data.length + " items";
+        });
+    </script> 
+        
+        
+        
+    <script>    
+        function get(url,cb){
+            var r = new XMLHttpRequest(); 
+            r.open("GET", url, true);
+            r.onreadystatechange = function () {
+               if (r.readyState == 4 && r.status == 200) 
+                     cb(JSON.parse(r.responseText));
+            };
+            r.send();
+        }
+  
+        get("https://www.reddit.com/r/aww.json",function(response){
+            var foo = response.data.children.filter(function(value){
+                return !value.data.is_self;
+            }).map(function(value){
+                      return value.data.thumbnail;
+                  });
+            
+            var loadedEvent = new CustomEvent("dataLoaded", {
+	           detail: {
+		          data: foo
+	           }
+            });
+        
+            display.dispatchEvent(loadedEvent);
+        });
+        
+        
+    </script>
+    </body>
+</html>

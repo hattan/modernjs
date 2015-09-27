@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+    <style> 
+        ul{list-style-type: none}
+        button{padding:10px;margin:10px;}
+    </style>
+    <body>
+        <div id="msg"></div>
+        
+        <div id="list">
+        </div>
+        
+        <script>
+        var parent = document.getElementById("list"),
+            msg = document.getElementById("msg");
+            
+        addButtons();
+            
+        parent.addEventListener("click",function(e){
+            msg.innerHTML = "You clicked on " + e.target.innerHTML;
+            console.log("parent");
+            e.stopPropagation();
+        });
+            
+        window.addEventListener("click",function(e){
+            msg.innerHTML = "parent window got " + e.target.innerHTML;
+            console.log("window");
+        });
+            
+            
+            
+        function addButtons(){
+            var items=[];
+            for(var i=0;i<50;i++){
+                items.push("<button>Button #" + i + "</button>");
+            }
+            list.innerHTML = items.join('');
+                        
+        }
+  
+        </script>
+    </body>
+</html>

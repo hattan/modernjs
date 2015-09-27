@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+    <body>
+        <div id="message"></div>
+        <button id="btn">Click me</button>
+        <button id="btn2">Click me too!</button>
+        <script>
+        
+     
+            
+        document.addEventListener("DOMContentLoaded", function (event) {
+            var $ = (document.getElementById).bind(document);
+            
+            var div = $("message"),
+                btn = $("btn");
+            
+            var counter=0;
+                        
+            btn.addEventListener("click",function(){
+                //code specific to btn
+               buttonClickHandler.apply(this);
+            });
+            
+            $("btn2").addEventListener("click",function(){
+                //code specific to btn2
+                buttonClickHandler.apply(this);
+            });
+                
+            function buttonClickHandler(){
+                message.innerHTML = ++counter;
+                console.log(this.id);
+            }
+        });
+            
+        </script>
+    </body>
+</html>
